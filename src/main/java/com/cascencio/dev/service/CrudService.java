@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface CrudService<T, ID> {
 
-	List<T> findAll();
+	List<T> obtenerTodos();
 	
-	List<T> search(String filtro);
+	List<T> buscarPorFiltro(String filtro);
 	
 }

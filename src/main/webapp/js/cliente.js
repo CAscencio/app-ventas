@@ -20,9 +20,8 @@ inputBuscarCliente.addEventListener('keyup', () => {
 	}, 500);
 });
 
-
 function listarClientes() {
-	console.log('Pagina cargada');
+	console.log('Pagina cliente cargada');
 
 	let clientes = [];
 

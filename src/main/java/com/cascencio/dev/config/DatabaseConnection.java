@@ -6,13 +6,13 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 	
-	// private static final String URL = "jdbc:postgresql://localhost:5432/db_ventas";
-    // private static final String USUARIO = "postgres";
-    // private static final String CONTRASENA = "admin";
+	 private static final String URL = "jdbc:postgresql://localhost:5432/db_ventas";
+     private static final String USUARIO = "postgres";
+     private static final String CONTRASENA = "admin";
 
-    private static final String URL = "jdbc:postgresql://castor.db.elephantsql.com/ywcipoog";
-    private static final String USUARIO = "ywcipoog";
-    private static final String CONTRASENA = "8UzDUQ4IRAvRgzAWoe77cnpUjbZO1y-H";
+//    private static final String URL = "jdbc:postgresql://castor.db.elephantsql.com/ywcipoog";
+//    private static final String USUARIO = "ywcipoog";
+//    private static final String CONTRASENA = "8UzDUQ4IRAvRgzAWoe77cnpUjbZO1y-H";
 
 	private DatabaseConnection() {}
 	

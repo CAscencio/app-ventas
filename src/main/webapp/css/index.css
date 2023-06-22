@@ -269,3 +269,8 @@ body{
     width: calc(100% - 78px);
   }
 }
+
+
+.bg-border-white {
+	background-color: #fff !important;
+}

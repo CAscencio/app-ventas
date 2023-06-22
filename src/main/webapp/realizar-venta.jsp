@@ -16,7 +16,7 @@
 				<jsp:include page="component/spinner.jsp"></jsp:include>
 			</div>		
 
-			<div class="container overflow-auto overflow-auto" style="height: 100vh;">
+			<div class="container overflow-auto" style="height: 100vh;">
 				
 				<div class="my-3 p-3 bg-body rounded shadow-sm">
 					<h6 class="border-bottom pb-2 mb-0">Datos del Cliente</h6>

@@ -14,13 +14,13 @@ import com.cascencio.dev.model.Cliente;
 public class ClienteServiceImpl implements CrudService<Cliente, Integer>{
 
 	@Override
-	public List<Cliente> findAll() {
+	public List<Cliente> obtenerTodos() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Cliente> search(String filtro) {
+	public List<Cliente> buscarPorFiltro(String filtro) {
 		Connection cxn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;

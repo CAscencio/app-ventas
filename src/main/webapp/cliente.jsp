@@ -17,20 +17,25 @@
 				<jsp:include page="component/spinner.jsp"></jsp:include>
 			</div>	
 
-			<div class="container">
+			<div class="container overflow-auto" style="height: 100vh;">
 
 
-				<div class="d-flex align-items-center p-3 my-3 rounded shadow-sm">
-					<div class="input-group pe-5">
-  						<span class="input-group-text bg-border-white"><i class="bx bx-search-alt-2"></i></span>
-					  	<input type="search" class="form-control" placeholder="Buscar..." id="idBuscarCliente">
+				<div class="p-3 my-3 rounded shadow-sm">
+					<div class="row g-3 pt-3">
+						<div class="col-md-11">
+							<div class="input-group pe-5">
+		  						<span class="input-group-text bg-border-white"><i class="bx bx-search-alt-2"></i></span>
+							  	<input type="search" class="form-control" placeholder="Buscar..." id="idBuscarCliente">
+							</div>
+						</div>
+						<div class="col-md-1">
+							<button type="button" class="btn btn-primary">Nuevo</button>
+						</div>
 					</div>
-					
-					<button type="button" class="btn btn-primary">Nuevo</button>
 				</div>
 
-				<div class="p-3 my-3 rounded shadow-sm bg-body">
-					<table class="table table-sm table-hover">
+				<div class="p-3 my-3 rounded shadow-sm bg-body overflow-auto">
+					<table class="table table-sm table-hover" style="with: 90%;">
 						<thead>
 							<tr>
 								<th scope="col">#</th>

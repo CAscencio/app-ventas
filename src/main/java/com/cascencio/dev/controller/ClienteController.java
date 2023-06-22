@@ -36,7 +36,7 @@ public class ClienteController extends HttpServlet {
 	private void search(HttpServletRequest request, HttpServletResponse response) {
 		String filtro = Optional.ofNullable(request.getParameter("filtro")).orElse("");
 		
-		List<Cliente> clientes = clienteService.search(filtro);
+		List<Cliente> clientes = clienteService.buscarPorFiltro(filtro);
 		
 		Gson gson = new Gson();
 		String data = gson.toJson(clientes);
