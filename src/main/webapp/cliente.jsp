@@ -29,7 +29,7 @@
 							</div>
 						</div>
 						<div class="col-md-1">
-							<button type="button" class="btn btn-primary">Nuevo</button>
+							<button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">Nuevo</button>
 						</div>
 					</div>
 				</div>

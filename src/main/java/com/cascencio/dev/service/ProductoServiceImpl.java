@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cascencio.dev.config.DatabaseConnection;
+import com.cascencio.dev.exception.ServerException;
 import com.cascencio.dev.model.Categoria;
 import com.cascencio.dev.model.Producto;
 
@@ -79,6 +80,47 @@ public class ProductoServiceImpl implements CrudService<Producto, Integer>{
 			}
 		}
 		return productos;
+	}
+
+	@Override
+	public void crear(Producto producto) {
+		Connection cxn = null;
+		PreparedStatement ps = null;
+		String sql = "INSERT INTO public.productos(categoria_id, sku, nombre, descripcion, precio_venta, stock) VALUES (?,?,?,?,?,?)";
+		
+		try {
+			cxn = DatabaseConnection.obtenerConexion();
+			cxn.setAutoCommit(false);
+			
+			ps = cxn.prepareStatement(sql);
+			ps.setInt(1, producto.getCategoria().getId());
+			ps.setString(2, producto.getSku());
+			ps.setString(3, producto.getNombre());
+			ps.setString(4, producto.getDescripcion());
+			ps.setBigDecimal(5, producto.getPrecioVenta());
+			ps.setInt(6, producto.getStock());
+			ps.executeUpdate();
+			
+			ps.close();
+			cxn.commit();
+		} catch (SQLException e) {
+			System.out.println("Error al crear producto: " + e.getMessage());
+			throw new ServerException("Error al crear el producto");
+		} finally {
+			try {
+				cxn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void actualizar(Producto t) {
+	}
+
+	@Override
+	public void eliminar(Integer id) {
 	}
 
 }

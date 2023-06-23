@@ -109,4 +109,22 @@ public class ClienteServiceImpl implements CrudService<Cliente, Integer>{
 		return clientes;
 	}
 
+	@Override
+	public void crear(Cliente t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actualizar(Cliente t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminar(Integer id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

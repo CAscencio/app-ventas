@@ -8,4 +8,10 @@ public interface CrudService<T, ID> {
 	
 	List<T> buscarPorFiltro(String filtro);
 	
+	void crear(T t);
+	
+	void actualizar(T t);
+	
+	void eliminar(ID id);
+	
 }

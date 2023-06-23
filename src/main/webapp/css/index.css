@@ -270,7 +270,10 @@ body{
   }
 }
 
+/* Reutilizables */
 
 .bg-border-white {
 	background-color: #fff !important;
 }
+
+/* Override Bootstrap */

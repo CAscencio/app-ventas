@@ -20,6 +20,8 @@ inputBuscarCliente.addEventListener('keyup', () => {
 	}, 500);
 });
 
+inputBuscarCliente.addEventListener('search', () => listarClientes);
+
 function listarClientes() {
 	console.log('Pagina cliente cargada');
 
@@ -45,8 +47,8 @@ function listarClientes() {
 					<td>${item.dni}</td>
 					<td>${item.direccion}</td>
 					<td>
-						<button type="button" class="btn btn-light"><i class="bx bxs-pencil"></i></button>
-						<button type="button" class="btn btn-danger"><i class="bx bxs-trash"></i></button>
+						<button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar usuario" data-bs-class="tooltip-sm"><i class="bx bxs-pencil"></i></button>
+						<button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar usuario" data-bs-class="tooltip-sm"><i class="bx bxs-trash"></i></button>
 					</td>
 				</tr>`;
 			});
@@ -56,6 +58,14 @@ function listarClientes() {
 		}
 		
 		ocultarSpinner();
+		cargarTooltips();
 	};
 	xhr.send();
+}
+
+function cargarTooltips() {
+  let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
 }
