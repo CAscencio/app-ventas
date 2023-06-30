@@ -1,16 +1,18 @@
 #toasts-messaje {
   position: fixed;
-  z-index: 1;
+  z-index: 10;
   top: 10px;
   right: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  animation: fadein 0.5s;
 }
 
 .toast-content {
-  width: 300px;
-  height: 55px;
+  width: 320px;
+/*   height: 55px; */
+/*   height: 95px; */
   border-radius: 5px;
   margin: 0.5rem;
   color: #ffffff;
@@ -19,6 +21,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: row-reverse;
+  padding: 15px
 }
 
 .info {

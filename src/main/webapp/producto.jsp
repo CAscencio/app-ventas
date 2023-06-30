@@ -55,7 +55,7 @@
 					</table>
 				</div>
 
-
+				<div id="paginationContainer" class="d-flex justify-content-center mt-4"></div>
 			</div>
 		</div>
 	</section>
@@ -80,16 +80,14 @@
 							</div>
 							<div class="col-md-4">
 							    <label for="idNombreProducto" class="form-label">Nombre<span class="text-danger">*</span></label>
-							    <input type="text" class="form-control form-control-sm" id="idNombreProducto" required>
-							    <div class="valid-feedback">
-							      Looks good!
-							    </div>
+							    <input type="text" class="form-control form-control-sm" id="idNombreProducto" required oninput="validateInput(this)" onblur="campoRequerido(this)">
+							    <div id="idNombreProductoFeedback"></div>
 							</div>
 							<div class="col-md-8">
 							    <label for="idDescripcionProducto" class="form-label">Descripción</label>
 							    <input type="text" class="form-control form-control-sm" id="idDescripcionProducto" required>
-							    <div class="valid-feedback">
-							      Looks good!
+							    <div class="invalid-feedback">
+							      Campo requerido
 							    </div>
 							</div>
 							<div class="col-md-12">
@@ -126,7 +124,7 @@
 			</div>
 		</div>
 	</div>
-
+	
 	<script type="module" src="js/producto.js"></script>
 	<%@include file="component/allscript.jsp" %>
 </body>

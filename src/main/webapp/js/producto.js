@@ -70,8 +70,6 @@ function listarProductos() {
 }
 
 btnNuevoProducto.addEventListener('click', () => {
-	//Test de mostrar toast
-	createToast();
 
 	// Abrir modal formulario
 //	let modalProducto = document.getElementById('idModalProducto');
@@ -129,7 +127,11 @@ function guardarProducto() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
 			// La solicitud se completó correctamente
 			modalProductoRef.hide();
-			createToast();
+			
+			//Mostrar Toast
+			// Parametro 1: El tipo de toast ("info", "success", "error", "warning")
+			// Parametro 2: El mensaje que se quiere mostrar.
+			createToast('success', 'Producto creado correctamente');
 			console.log(xhr.responseText);
 		}
 	};

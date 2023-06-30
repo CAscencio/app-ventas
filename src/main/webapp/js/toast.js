@@ -9,8 +9,8 @@ const messages = [
 
 const types = ["info", "success", "error", "warning"];
 
-export function createToast(message = null, type = null) {
-	console.log('Motrando Toast');
+export function createToast(type = null, message = null) {
+  console.log('Motrando Toast');
   let properties;
 
   const notif = document.createElement("div");
@@ -25,14 +25,15 @@ export function createToast(message = null, type = null) {
   notifIcon.classList.add(properties[0]);
   notifIcon.classList.add(properties[1]);
 
-  notif.innerText = messages[properties[2]];
+  console.log('Message: ', message);
+  notif.innerText = message ? message : messages[properties[2]];
 
   toast.appendChild(notif);
   notif.append(notifIcon);
 
   setTimeout(() => {
     notif.remove();
-  }, 2000);
+  }, 3000);
 }
 
 function setProperties(notificationType) {

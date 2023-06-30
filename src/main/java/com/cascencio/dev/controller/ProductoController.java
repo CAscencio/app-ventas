@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cascencio.dev.message.DefaultPageRequest;
+import com.cascencio.dev.message.PageResponse;
 import com.cascencio.dev.model.Categoria;
 import com.cascencio.dev.model.Producto;
 import com.cascencio.dev.service.ProductoServiceImpl;
 import com.google.gson.Gson;
 
-@WebServlet({"/ProductoBuscar", "/ProductoCrear"})
+@WebServlet({"/ProductoBuscar", "/ProductoPaginado", "/ProductoCrear"})
 public class ProductoController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -28,17 +30,32 @@ public class ProductoController extends HttpServlet {
 		case "/ProductoBuscar":
 			buscarPorFiltro(request, response);
 			break;
+		case "/ProductoPaginado":
+			buscarPaginado(request, response);
+			break;
 		case "/ProductoCrear":
 			crear(request, response);
 			break;
 		}
-
 	}
-	
+
 	private void buscarPorFiltro(HttpServletRequest request, HttpServletResponse response) {
 		String filtro = Optional.ofNullable(request.getParameter("filtro")).orElse("");
 		
 		List<Producto> productos = productoService.buscarPorFiltro(filtro);
+		
+		Gson gson = new Gson();
+		String data = gson.toJson(productos);
+		ControllerUtil.responseJson(response, data);
+	}
+	
+	
+	private void buscarPaginado(HttpServletRequest request, HttpServletResponse response) {
+		String filtro = request.getParameter("filtro");
+		Integer pagina = Integer.parseInt(request.getParameter("pagina"));
+		Integer cantidad = Integer.parseInt(request.getParameter("cantidad"));
+		
+		PageResponse<Producto> productos = productoService.obtenerPaginado(new DefaultPageRequest(filtro, pagina, cantidad));
 		
 		Gson gson = new Gson();
 		String data = gson.toJson(productos);

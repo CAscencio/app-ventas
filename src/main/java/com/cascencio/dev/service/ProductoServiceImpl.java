@@ -9,6 +9,8 @@ import java.util.List;
 
 import com.cascencio.dev.config.DatabaseConnection;
 import com.cascencio.dev.exception.ServerException;
+import com.cascencio.dev.message.DefaultPageRequest;
+import com.cascencio.dev.message.PageResponse;
 import com.cascencio.dev.model.Categoria;
 import com.cascencio.dev.model.Producto;
 
@@ -82,6 +84,88 @@ public class ProductoServiceImpl implements CrudService<Producto, Integer>{
 		return productos;
 	}
 
+	public PageResponse<Producto> obtenerPaginado(DefaultPageRequest pageRequest) {
+		
+		Integer total = 0;
+		
+		Connection cxn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT"
+				+ "    p.id,"
+				+ "    p.sku,"
+				+ "    p.nombre,"
+				+ "    p.descripcion,"
+				+ "    c.id as categoria_id,"
+				+ "    c.nombre as categoria_nombre,"
+				+ "    p.precio_venta,"
+				+ "    p.stock "
+				+ "FROM public.productos p "
+				+ "INNER JOIN public.categorias c on c.id = p.categoria_id "
+				+ "WHERE p.sku ILIKE ? OR p.nombre ILIKE ? OR p.descripcion ILIKE ? "
+				+ "LIMIT ? OFFSET ?";
+		
+		Producto producto;
+		Categoria categoria;
+		List<Producto> productos = new ArrayList<>();
+		
+		try {
+			cxn = DatabaseConnection.obtenerConexion();
+			ps = cxn.prepareStatement(sql);
+			ps.setString(1, "%" + pageRequest.getSearchCriteria() + "%");
+			ps.setString(2, "%" + pageRequest.getSearchCriteria() + "%");
+			ps.setString(3, "%" + pageRequest.getSearchCriteria() + "%");
+			ps.setInt(4, pageRequest.getItemsPerPage());
+			ps.setInt(5,(pageRequest.getCurrentPage() - 1) * pageRequest.getItemsPerPage());
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				categoria = new Categoria();
+				categoria.setId(rs.getInt("categoria_id"));
+				categoria.setNombre(rs.getString("categoria_nombre"));
+				
+				producto = new Producto();
+				producto.setId(rs.getInt("id"));
+				producto.setSku(rs.getString("sku"));
+				producto.setNombre(rs.getString("nombre"));
+				producto.setDescripcion(rs.getString("descripcion"));
+				producto.setCategoria(categoria);
+				producto.setPrecioVenta(rs.getBigDecimal("precio_venta"));
+				producto.setStock(rs.getInt("stock"));
+				
+				productos.add(producto);
+			}
+			
+			ps = null;
+			rs = null;
+			String sqlCount = "SELECT count(*) FROM public.productos p "
+				+ "INNER JOIN public.categorias c on c.id = p.categoria_id "
+				+ "WHERE p.sku ILIKE ? OR p.nombre ILIKE ? OR p.descripcion ILIKE ? ";
+			
+			ps = cxn.prepareStatement(sqlCount);
+			ps.setString(1, "%" + pageRequest.getSearchCriteria() + "%");
+			ps.setString(2, "%" + pageRequest.getSearchCriteria() + "%");
+			ps.setString(3, "%" + pageRequest.getSearchCriteria() + "%");
+			
+			rs = ps.executeQuery();
+			total = rs.next() ? Integer.parseInt(rs.getString("count")) : 0;
+			
+			rs.close();
+			ps.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Error al buscar productos paginados: " + e.getMessage());
+		} finally {
+			try {
+				cxn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return new PageResponse<>(total, productos);
+	}
+	
 	@Override
 	public void crear(Producto producto) {
 		Connection cxn = null;
